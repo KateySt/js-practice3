@@ -2,14 +2,11 @@ import {Component} from "react";
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
-import DeleteIcon from '@mui/icons-material/Delete';
 import './ListContact.css';
+import RowsOfList from "../row/RowsOfList";
+import {ContextForm} from "../form/context/ContextForm";
 
 class ListContact extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         list: [
             {
@@ -30,22 +27,22 @@ class ListContact extends Component {
                 surname: 'Bobcow',
                 phone: '00000003',
             },
-        ],
+        ]
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.data.phone != this.props.data.phone) {
+    componentDidUpdate() {
+        if ((this.state.list[this.state.list.length - 1].phone !== this.context.character.phone)
+            & (this.context.character.phone !== undefined)) {
             this.setState({
                 list: [...this.state.list, {
                     id: Date.now(),
-                    name: this.props.data.name,
-                    surname: this.props.data.surname,
-                    phone: this.props.data.phone
+                    name: this.context.character.name,
+                    surname: this.context.character.surname,
+                    phone: this.context.character.phone
                 }],
             });
         }
     }
-
 
     onDelete = (value) => {
         this.setState({
@@ -62,17 +59,8 @@ class ListContact extends Component {
                             <List dense={false}>
                                 {this.state.list &&
                                     this.state.list.map((value, index) =>
-                                        <div key={`rows-- ${index}`} className="rows">
-                                            <div className="contact">
-                                                {`${value.name} ${value.surname} --${value.phone}`}
-                                            </div>
-                                            <div className="buttonDelete"
-                                                 onClick={() => {
-                                                     this.onDelete(value)
-                                                 }}>
-                                                <DeleteIcon/>
-                                            </div>
-                                        </div>
+                                        <RowsOfList key={`rows-- ${index}`} date={value}
+                                                    onDelete={this.onDelete}/>
                                     )}
                             </List>
                         </Grid>
@@ -82,5 +70,7 @@ class ListContact extends Component {
         );
     };
 };
+
+ListContact.contextType = ContextForm;
 
 export default ListContact;

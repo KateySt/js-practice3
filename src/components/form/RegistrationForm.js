@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import './RegistrationForm.css';
-import ListContact from "../list";
+import {ContextForm} from './context/ContextForm.js';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -16,24 +16,25 @@ const SignupSchema = Yup.object().shape({
         .max(50, 'Too Long!')
         .required('Required'),
     phone: Yup.string()
-        .required("required")
+        .required("Required")
         .matches(phoneRegExp, 'Phone number is not valid')
-        .min(10, "too short")
-        .max(10, "too long"),
+        .min(10, "Too short")
+        .max(10, "Too long"),
 });
 
 class RegistrationForm extends React.Component {
     state = {
-        input: '',
+        character: {},
         isShow: false,
     }
+
     onShowForm = () => {
         this.setState({isShow: !this.state.isShow})
     }
 
     render() {
         return (
-            <>
+            <ContextForm.Provider value={this.ContextForm}>
                 <Formik
                     initialValues={{
                         name: '',
@@ -41,12 +42,9 @@ class RegistrationForm extends React.Component {
                         phone: '',
                     }}
                     validationSchema={SignupSchema}
-
                     onSubmit={(values) => {
-                        this.setState({input: values})
-                    }
-                    }
-                >
+                        this.setState({character: values})
+                    }}>
                     {({errors, touched}) => {
                         return (<Form>
                                 {this.state.isShow &&
@@ -87,10 +85,18 @@ class RegistrationForm extends React.Component {
                         )
                     }}
                 </Formik>
-                <ListContact data={this.state.input}/>
-            </>
+                {this.props.children}
+            </ContextForm.Provider>
+
         );
-    };
+    }
+
+    get ContextForm() {
+        return {
+            character: this.state.character,
+        }
+    }
+
 };
 
 export default RegistrationForm;
