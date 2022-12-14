@@ -20,3 +20,8 @@ input:valid {
 input:invalid {
     border: 2px dashed red;
 }
+
+input:required:invalid ~ button.submit {
+    opacity: .65;
+    pointer-events: none;
+}

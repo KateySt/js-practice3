@@ -22,6 +22,12 @@ const SignupSchema = Yup.object().shape({
         .max(10, "Too long"),
 });
 
+const SignupForm = {
+    name: '',
+    surname: '',
+    phone: '',
+};
+
 class RegistrationForm extends React.Component {
     state = {
         character: {},
@@ -32,19 +38,17 @@ class RegistrationForm extends React.Component {
         this.setState({isShow: !this.state.isShow})
     }
 
+    onSubmitFormik = (values) => {
+        this.setState({character: values})
+    }
+
     render() {
         return (
             <ContextForm.Provider value={this.ContextForm}>
                 <Formik
-                    initialValues={{
-                        name: '',
-                        surname: '',
-                        phone: '',
-                    }}
+                    initialValues={SignupForm}
                     validationSchema={SignupSchema}
-                    onSubmit={(values) => {
-                        this.setState({character: values})
-                    }}>
+                    onSubmit={this.onSubmitFormik}>
                     {({errors, touched}) => {
                         return (<Form>
                                 {this.state.isShow &&
@@ -72,7 +76,8 @@ class RegistrationForm extends React.Component {
                                             <div>{errors.phone}</div>
                                         ) : null}
                                         <br/>
-                                        <button type="submit">Submit</button>
+
+                                        <button type="submit" className="submit ">Submit</button>
                                     </>}
                                 <button onClick={this.onShowForm}>
                                     {!this.state.isShow ?
