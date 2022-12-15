@@ -31,8 +31,8 @@ class ListContact extends Component {
     }
 
     componentDidUpdate() {
-        if ((this.state.list[this.state.list.length - 1].phone !== this.context.character.phone)
-            & (this.context.character.phone !== undefined)) {
+        if ((this.context.character.phone !== undefined)&
+        (this.state.list[this.state.list.length - 1].phone !== this.context.character.phone)) {
             this.setState({
                 list: [...this.state.list, {
                     id: Date.now(),
@@ -41,12 +41,13 @@ class ListContact extends Component {
                     phone: this.context.character.phone
                 }],
             });
+            this.context.character = {}
         }
     }
 
     onDelete = (value) => {
         this.setState({
-            deleteElement: this.state.list.splice(this.state.list.indexOf(value), 1)
+            list: this.state.list.filter((el) => value != el)
         });
     }
 
