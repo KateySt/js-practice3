@@ -31,18 +31,18 @@ class ListContact extends Component {
     }
 
     componentDidUpdate() {
-        if ((this.context.character.phone !== undefined)&
-        (this.state.list[this.state.list.length - 1].phone !== this.context.character.phone)) {
-            this.setState({
-                list: [...this.state.list, {
-                    id: Date.now(),
-                    name: this.context.character.name,
-                    surname: this.context.character.surname,
-                    phone: this.context.character.phone
-                }],
-            });
-            this.context.character = {}
-        }
+        if (this.state.list)
+            if (this.context.character.phone !== undefined) {
+                this.setState({
+                    list: [...this.state.list, {
+                        id: Date.now(),
+                        name: this.context.character.name,
+                        surname: this.context.character.surname,
+                        phone: this.context.character.phone
+                    }],
+                });
+                this.context.character = {}
+            }
     }
 
     onDelete = (value) => {
