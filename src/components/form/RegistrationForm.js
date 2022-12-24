@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Field, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import './RegistrationForm.css';
-import {ContextForm} from './context/ContextForm.js';
+import ListContact from "../list";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -28,80 +28,68 @@ const SignupForm = {
     phone: '',
 };
 
-class RegistrationForm extends React.Component {
-    state = {
-        character: {},
-        isShow: false,
+const RegistrationForm = () => {
+    const [character, setCharacter] = useState({});
+    const [isShow, setIsShow] = useState(false);
+
+    const onShowForm = () => {
+        setIsShow(!isShow);
     }
 
-    onShowForm = () => {
-        this.setState({isShow: !this.state.isShow})
+    const onSubmitFormik = (values) => {
+        setCharacter(values);
     }
 
-    onSubmitFormik = (values) => {
-        this.setState({character: values})
-    }
+    return (
+        <>
+            <Formik
+                initialValues={SignupForm}
+                validationSchema={SignupSchema}
+                onSubmit={onSubmitFormik}>
+                {({errors, touched}) => {
+                    return (<Form>
+                            {isShow &&
+                                <>
+                                    <label htmlFor="name">Name</label>
+                                    <br/>
+                                    <Field name="name" className="input" required/>
+                                    {errors.name && touched.name ? (
+                                        <div>{errors.name}</div>
+                                    ) : null}
+                                    <br/>
 
-    render() {
-        return (
-            <ContextForm.Provider value={this.ContextForm}>
-                <Formik
-                    initialValues={SignupForm}
-                    validationSchema={SignupSchema}
-                    onSubmit={this.onSubmitFormik}>
-                    {({errors, touched}) => {
-                        return (<Form>
-                                {this.state.isShow &&
-                                    <>
-                                        <label htmlFor="name">Name</label>
-                                        <br/>
-                                        <Field name="name" className="input" required/>
-                                        {errors.name && touched.name ? (
-                                            <div>{errors.name}</div>
-                                        ) : null}
-                                        <br/>
+                                    <label htmlFor="surname">Surname</label>
+                                    <br/>
+                                    <Field name="surname" className="input" required/>
+                                    {errors.surname && touched.surname ? (
+                                        <div>{errors.surname}</div>
+                                    ) : null}
+                                    <br/>
 
-                                        <label htmlFor="surname">Surname</label>
-                                        <br/>
-                                        <Field name="surname" className="input" required/>
-                                        {errors.surname && touched.surname ? (
-                                            <div>{errors.surname}</div>
-                                        ) : null}
-                                        <br/>
+                                    <label htmlFor="phone">Phone</label>
+                                    <br/>
+                                    <Field name="phone" type="phone" className="input" required/>
+                                    {errors.phone && touched.phone ? (
+                                        <div>{errors.phone}</div>
+                                    ) : null}
+                                    <br/>
 
-                                        <label htmlFor="phone">Phone</label>
-                                        <br/>
-                                        <Field name="phone" type="phone" className="input" required/>
-                                        {errors.phone && touched.phone ? (
-                                            <div>{errors.phone}</div>
-                                        ) : null}
-                                        <br/>
-
-                                        <button type="submit" className="submit ">Submit</button>
-                                    </>}
-                                <button onClick={this.onShowForm}>
-                                    {!this.state.isShow ?
-                                        'Show form'
-                                        :
-                                        'Cancel'
-                                    }
-                                </button>
-                            </Form>
-                        )
-                    }}
-                </Formik>
-                {this.props.children}
-            </ContextForm.Provider>
-
-        );
-    }
-
-    get ContextForm() {
-        return {
-            character: this.state.character,
-        }
-    }
-
+                                    <button type="submit" className="submit ">Submit</button>
+                                </>}
+                            <button onClick={onShowForm}>
+                                {!isShow ?
+                                    'Show form'
+                                    :
+                                    'Cancel'
+                                }
+                            </button>
+                        </Form>
+                    )
+                }}
+            </Formik>
+            <ListContact dataList={character}/>
+        </>
+    );
 };
 
 export default RegistrationForm;
