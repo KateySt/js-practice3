@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Field, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import './RegistrationForm.css';
-import ListContact from "../list";
+import {ContextForm} from './context/ContextForm.js';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -28,7 +28,7 @@ const SignupForm = {
     phone: '',
 };
 
-const RegistrationForm = () => {
+const RegistrationForm = (props) => {
     const [character, setCharacter] = useState({});
     const [isShow, setIsShow] = useState(false);
 
@@ -41,7 +41,7 @@ const RegistrationForm = () => {
     }
 
     return (
-        <>
+        <ContextForm.Provider value={character}>
             <Formik
                 initialValues={SignupForm}
                 validationSchema={SignupSchema}
@@ -87,9 +87,10 @@ const RegistrationForm = () => {
                     )
                 }}
             </Formik>
-            <ListContact dataList={character}/>
-        </>
+            {props.children}
+        </ContextForm.Provider>
     );
+
 };
 
 export default RegistrationForm;

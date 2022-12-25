@@ -1,11 +1,13 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
 import './ListContact.css';
 import RowsOfList from "../row/RowsOfList";
+import {ContextForm} from "../form/context/ContextForm";
 
-const ListContact = ({dataList}) => {
+const ListContact = () => {
+    const value = useContext(ContextForm);
     const [list, setList] = useState(
         [
             {
@@ -31,15 +33,15 @@ const ListContact = ({dataList}) => {
 
     useEffect(() => {
         if (list)
-            if (dataList.phone !== undefined) {
+            if (value.phone !== undefined) {
                 setList([...list, {
                     id: Date.now(),
-                    name: dataList.name,
-                    surname: dataList.surname,
-                    phone: dataList.phone
+                    name: value.name,
+                    surname: value.surname,
+                    phone: value.phone
                 }]);
             }
-    }, [dataList]);
+    }, [value]);
 
 
     const onDelete = (value) => {
