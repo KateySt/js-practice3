@@ -79,7 +79,7 @@ const RegistrationForm = (props) => {
 
                                     <button type="submit" className="submit">Submit</button>
                                 </>}
-                            <button onClick={onShowForm}>
+                            <button type="button" onClick={onShowForm}>
                                 {!isShow ?
                                     'Show form'
                                     :
