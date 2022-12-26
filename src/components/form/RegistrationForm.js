@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Field, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import './RegistrationForm.css';
@@ -39,6 +39,9 @@ const RegistrationForm = (props) => {
     const onSubmitFormik = (values) => {
         setCharacter(values);
     }
+    useEffect(() => {
+        setIsShow(false);
+    }, [character])
 
     return (
         <ContextForm.Provider value={character}>
@@ -74,7 +77,7 @@ const RegistrationForm = (props) => {
                                     ) : null}
                                     <br/>
 
-                                    <button type="submit" className="submit ">Submit</button>
+                                    <button type="submit" className="submit">Submit</button>
                                 </>}
                             <button onClick={onShowForm}>
                                 {!isShow ?

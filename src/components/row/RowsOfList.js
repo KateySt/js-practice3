@@ -3,9 +3,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './RowsOfList.css';
 
 const RowsOfList = ({data, onDelete}) => {
-    const onRowsOfListDelete = (data) => {
-        onDelete(data)
-    }
     return (
         <div className="rows">
             <div className="contact">
@@ -13,7 +10,7 @@ const RowsOfList = ({data, onDelete}) => {
             </div>
             <div className="buttonDelete"
                  onClick={() => {
-                     onRowsOfListDelete(data)
+                     onDelete(data)
                  }}>
                 <DeleteIcon/>
             </div>
