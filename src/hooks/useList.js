@@ -23,13 +23,13 @@ function useList() {
                     })
                     .then((data) => data.json())
                     .then((data) => setList([...list, {
-                        name: `${value.name} ${value.surname}`,
+                        name: value.name,
                         phone: value.phone
                     }]))
                     .catch((error) => console.log("Error", error));
 
                 setList([...list, {
-                    name: `${value.name} ${value.surname}`,
+                    name: value.name,
                     phone: value.phone
                 }]);
             }
