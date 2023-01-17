@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 function useRegistrationForm() {
- const [character, setCharacter] = useState({});
+    const [character, setCharacter] = useState({});
     const [isShow, setIsShow] = useState(false);
 
     const onShowForm = () => {
@@ -15,7 +15,7 @@ function useRegistrationForm() {
         setIsShow(false);
     }, [character])
 
-    return{
+    return {
         character,
         isShow,
         onShowForm,

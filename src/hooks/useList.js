@@ -1,46 +1,42 @@
 import {ContextForm} from "../components/form/context/ContextForm";
 import {useContext, useEffect, useState} from "react";
+import axios from "axios";
 
 function useList() {
     const value = useContext(ContextForm);
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then((data) => data.json())
-            .then((data) => setList(data))
-            .catch((error) => console.log("Error", error));
+        axios.get('/users').then((data) => data.data)
+            .then((characters) => setList(characters))
+            .catch((err) => console.log("Don`t correct input", err));
     }, []);
 
     useEffect(() => {
         if (list)
             if (value.phone !== undefined) {
-                fetch(`https://jsonplaceholder.typicode.com/users`,
-                    {
-                        method: "POST",
-                        body: JSON.stringify(value),
-                        headers: {'Content-Type': 'application/json'}
-                    })
-                    .then((data) => data.json())
-                    .then((data) => setList([...list, {
-                        name: `${value.name} ${value.surname}`,
+                axios({
+                    method: 'post',
+                    url: '/users',
+                    data: {
+                        name: value.name,
                         phone: value.phone
-                    }]))
-                    .catch((error) => console.log("Error", error));
-
+                    }
+                }).catch((err) => console.log("Don`t correct input", err));
                 setList([...list, {
-                    name: `${value.name} ${value.surname}`,
+                    name: value.name,
                     phone: value.phone
                 }]);
             }
     }, [value]);
     const onDelete = (value) => {
         const newList = list.filter((el) => el !== value);
-        fetch(`https://jsonplaceholder.typicode.com/users/${value.id}`,
-            {
-                method: "DELETE"
-            })
-            .catch((error) => console.log("Error", error));
+        axios.delete(`/users/${value.id}`, {
+            params: {
+                name: value.name,
+                phone: value.phone
+            }
+        }).catch((err) => console.log("Don`t correct input", err));
         setList(newList);
     }
 
