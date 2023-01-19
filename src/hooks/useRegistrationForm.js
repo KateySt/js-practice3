@@ -9,7 +9,7 @@ function useRegistrationForm() {
     }
 
     const onSubmitFormik = (values) => {
-        setCharacter(values);
+        setCharacter({name: `${values.name} ${values.surname}`, phone: values.phone});
     }
     useEffect(() => {
         setIsShow(false);
