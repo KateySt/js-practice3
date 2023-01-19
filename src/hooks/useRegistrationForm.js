@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 function useRegistrationForm() {
- const [character, setCharacter] = useState({});
+    const [character, setCharacter] = useState({});
     const [isShow, setIsShow] = useState(false);
 
     const onShowForm = () => {
@@ -9,13 +9,14 @@ function useRegistrationForm() {
     }
 
     const onSubmitFormik = (values) => {
-        setCharacter(values);
+        setCharacter({name: `${values.name} ${values.surname}`, phone: values.phone});
     }
+
     useEffect(() => {
         setIsShow(false);
     }, [character])
 
-    return{
+    return {
         character,
         isShow,
         onShowForm,

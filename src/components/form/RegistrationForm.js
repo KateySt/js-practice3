@@ -10,7 +10,11 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 const SignupSchema = Yup.object().shape({
     name: Yup.string()
         .min(2, 'Too Short!')
-        .max(100, 'Too Long!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+    surname: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
         .required('Required'),
     phone: Yup.string()
         .required("Required")
@@ -21,6 +25,7 @@ const SignupSchema = Yup.object().shape({
 
 const SignupForm = {
     name: '',
+    surname: '',
     phone: '',
 };
 
@@ -42,6 +47,14 @@ const RegistrationForm = (props) => {
                                     <Field name="name" className="input" required/>
                                     {errors.name && touched.name ? (
                                         <div>{errors.name}</div>
+                                    ) : null}
+                                    <br/>
+
+                                    <label htmlFor="surname">Surname</label>
+                                    <br/>
+                                    <Field name="surname" className="input" required/>
+                                    {errors.surname && touched.surname ? (
+                                        <div>{errors.surname}</div>
                                     ) : null}
                                     <br/>
 
