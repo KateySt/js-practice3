@@ -3,19 +3,18 @@ import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
 import './ListContact.css';
 import RowsOfList from "../row/RowsOfList";
-import useList from "../../hooks/useList";
+import {connect} from "react-redux";
+import {deleteListUsers} from "../../storege/reducers";
 
-const ListContact = () => {
-    const {list, onDelete} = useList();
-
+const ListContact = ({usersList, onDelete}) => {
     return (
         <>
             <Box sx={{maxWidth: 752}}>
                 <Grid container spacing={1}>
                     <Grid item xs={12} md={6}>
                         <List dense={false}>
-                            {list &&
-                                list.map((value, index) =>
+                            {usersList &&
+                                usersList.map((value, index) =>
                                     <RowsOfList key={`rows-- ${index}`} data={value}
                                                 onDelete={onDelete}/>
                                 )}
@@ -28,4 +27,15 @@ const ListContact = () => {
 
 };
 
-export default ListContact;
+function mapStateToProps({usersList}) {
+    return {
+        usersList: usersList,
+    }
+}
+
+const mapDispatchToProps = {
+    onDelete: deleteListUsers,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListContact);
+

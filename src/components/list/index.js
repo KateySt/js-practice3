@@ -1,3 +1,3 @@
 import ListContact from "./ListContact";
 
-export default ListContact
+export default ListContact;
