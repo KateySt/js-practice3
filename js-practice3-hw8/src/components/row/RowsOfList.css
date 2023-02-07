@@ -1,0 +1,13 @@
+.rows {
+    display: table
+}
+
+.contact {
+    height: 50px;
+    width: 1000px;
+    display: table-cell
+}
+
+.buttonDelete {
+    display: table-cell
+}
