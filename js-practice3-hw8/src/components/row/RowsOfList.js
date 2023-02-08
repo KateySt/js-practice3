@@ -3,6 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './RowsOfList.css';
 import UpdateIcon from '@mui/icons-material/Update';
 import {NavLink, useLocation} from "react-router-dom";
+import {Button} from "@mui/material";
 
 const RowsOfList = ({data, onDelete}) => {
     const {pathname} = useLocation();
@@ -12,15 +13,15 @@ const RowsOfList = ({data, onDelete}) => {
             {
                 data.name ?
                     <NavLink to={`${pathname}/${data.id}`}>
-                        <div className="contact">
+                        <Button variant="contained" color="success" className="contact">
                             {`${data.name} --${data.phone}`}
-                        </div>
+                        </Button>
                     </NavLink>
                     :
                     <NavLink to={`/albums/${data.id}`}>
-                        <div className="contact">
+                        <Button variant="outlined" color="secondary" className="contact">
                             {`${data.id}. ${data.title}`}
-                        </div>
+                        </Button>
                     </NavLink>
             }
             <div className="buttonDelete"

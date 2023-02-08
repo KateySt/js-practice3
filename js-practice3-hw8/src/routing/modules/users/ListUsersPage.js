@@ -1,5 +1,5 @@
 import React from 'react';
-import ListContact from "../../../components/list";
+import ListContact from "../../../components/lists/listContacts";
 import RegistrationForm from "../../../components/form";
 
 const ListUsersPage = () => {

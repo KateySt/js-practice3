@@ -3,7 +3,7 @@ import {Field, Form, Formik} from 'formik';
 import './RegistrationForm.css';
 import {ContextForm} from './context/ContextForm.js';
 import useRegistrationForm from "../../hooks/useRegistrationForm";
-import {SignupSchema} from "./SignupSchema";
+import {SignupSchema} from "./schema/SignupSchema";
 
 const RegistrationForm = (props) => {
 

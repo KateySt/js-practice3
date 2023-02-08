@@ -11,7 +11,7 @@ const App = () => {
         <BrowserRouter>
             <Navigation/>
             <Routes>
-                <Route path="/" index element={<div>Home</div>}/>
+                <Route path="/" element={<div>Home</div>}/>
                 <Route path="/users/*" element={<UsersModule/>}/>
                 <Route path="/albums/*" element={<AlbumsModule/>}/>
                 <Route path='*' element={<Navigate to='/not-found' replace/>}/>
