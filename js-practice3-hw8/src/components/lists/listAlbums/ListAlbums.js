@@ -8,8 +8,8 @@ const ListAlbums = ({userId}) => {
     const {albums, onDeleteAlbum, isShow, onClickShowAlbums} = useAlbumsList();
 
     return (
-        <div onClick={onClickShowAlbums}>
-            <VisibilityIcon/>
+        <>
+            <VisibilityIcon onClick={onClickShowAlbums}/>
             {isShow && albums &&
                 albums.map((el, indexAlbum) => {
                         if (el.userId === userId)
@@ -19,7 +19,7 @@ const ListAlbums = ({userId}) => {
                     }
                 )
             }
-        </div>
+        </>
     );
 };
 

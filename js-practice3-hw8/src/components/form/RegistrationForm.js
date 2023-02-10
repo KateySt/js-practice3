@@ -10,7 +10,7 @@ const RegistrationForm = (props) => {
     const {character, isShow, onShowForm, onSubmitFormik} = useRegistrationForm();
 
     const SignupForm = {
-        name: props.user.name ,
+        name: props.user.name,
         phone: props.user.phone,
     };
 

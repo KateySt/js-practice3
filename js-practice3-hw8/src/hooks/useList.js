@@ -1,7 +1,13 @@
 import {ContextForm} from "../components/form/context/ContextForm";
 import {useContext, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteListUsers, getUsersAsync, postListUsers, selectUsersList} from "../features/users/UsersSlice";
+import {
+    changeUsersAsync,
+    deleteListUsers,
+    getUsersAsync,
+    postListUsers,
+    selectUsersList
+} from "../features/users/UsersSlice";
 
 function useList() {
     const value = useContext(ContextForm);
@@ -15,10 +21,16 @@ function useList() {
     useEffect(() => {
         if (list)
             if (value.phone !== undefined) {
-                dispatch(postListUsers({
-                    name: value.name,
-                    phone: value.phone
-                }));
+                if (list.map(el => el.name).indexOf(value.name)) {
+                    dispatch(changeUsersAsync(value));
+                    console.log(list)
+                } else {
+                    dispatch(postListUsers({
+                        id: Date.now(),
+                        name: value.name,
+                        phone: value.phone
+                    }));
+                }
             }
     }, [value]);
 
@@ -28,7 +40,7 @@ function useList() {
 
     return {
         list,
-        onDelete,
+        onDelete
     };
 }
 

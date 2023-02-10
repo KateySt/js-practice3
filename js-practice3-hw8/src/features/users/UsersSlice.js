@@ -15,6 +15,11 @@ export const UsersSlice = createSlice({
         deleteList: (state, action) => {
             state.deleteElement = state.usersList.splice(state.usersList.map(el => el.name).indexOf(action.payload.name), 1);
         },
+        changeList: (state, action) => {
+            state.usersList = state.usersList.map(item => item.id === action.payload.id
+                ? action.payload
+                : item);
+        },
         getList: (state, action) => {
             state.usersList = action.payload;
         },
@@ -24,7 +29,7 @@ export const UsersSlice = createSlice({
     },
 });
 
-export const {postList, deleteList, getList, getUser} = UsersSlice.actions;
+export const {postList, deleteList, getList, getUser, changeList} = UsersSlice.actions;
 
 export const selectUsersList = (state) => state.users.usersList;
 
@@ -44,6 +49,10 @@ export const getUsersAsync = () => (dispatch) => {
     axios.get('users').then((data) => data.data)
         .then((characters) => dispatch(getList(characters)))
         .catch((err) => console.log("Don`t correct input", err));
+}
+
+export const changeUsersAsync = (user) => (dispatch) => {
+    dispatch(changeList(user));
 }
 
 export const deleteListUsers = (element) => (dispatch) => {

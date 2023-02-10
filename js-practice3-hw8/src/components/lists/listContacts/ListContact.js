@@ -21,7 +21,7 @@ const ListContact = () => {
                                     <div key={`rows-- ${index}`}>
                                         <RowsOfList key={`user-- ${index}`} data={value}
                                                     onDelete={onDelete}/>
-                                            <ListAlbums userId={value.id}/>
+                                        <ListAlbums userId={value.id}/>
                                     </div>
                                 )}
                         </List>

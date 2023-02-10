@@ -9,7 +9,7 @@ function useRegistrationForm() {
     }
 
     const onSubmitFormik = (values) => {
-        setCharacter({name: values.name, phone: values.phone});
+        setCharacter({id: Date.now(), name: values.name, phone: values.phone});
     }
 
     useEffect(() => {
@@ -20,8 +20,8 @@ function useRegistrationForm() {
         character,
         isShow,
         onShowForm,
-        onSubmitFormik
-    }
+        onSubmitFormik,
+    };
 }
 
 export default useRegistrationForm;
