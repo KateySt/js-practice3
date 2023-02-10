@@ -16,9 +16,11 @@ export const UsersSlice = createSlice({
             state.deleteElement = state.usersList.splice(state.usersList.map(el => el.name).indexOf(action.payload.name), 1);
         },
         changeList: (state, action) => {
-            state.usersList = state.usersList.map(item => item.id === action.payload.id
-                ? action.payload
-                : item);
+            state.usersList = state.usersList.map((el) => ({
+                ...el,
+                name: el.id === action.payload.id ?  el.name :action.payload.name,
+                phone: el.id === action.payload.id ? el.phone: action.payload.phone,
+            }));
         },
         getList: (state, action) => {
             state.usersList = action.payload;

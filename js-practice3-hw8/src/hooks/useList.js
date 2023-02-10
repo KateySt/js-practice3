@@ -21,16 +21,14 @@ function useList() {
     useEffect(() => {
         if (list)
             if (value.phone !== undefined) {
-                if (list.map(el => el.name).indexOf(value.name)) {
-                    dispatch(changeUsersAsync(value));
-                    console.log(list)
-                } else {
+                if (list.map(el => el.name).indexOf(value.name) === -1)
                     dispatch(postListUsers({
                         id: Date.now(),
                         name: value.name,
                         phone: value.phone
                     }));
-                }
+                else
+                    dispatch(changeUsersAsync(value));
             }
     }, [value]);
 
