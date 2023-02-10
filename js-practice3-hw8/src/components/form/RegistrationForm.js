@@ -4,6 +4,7 @@ import './RegistrationForm.css';
 import {ContextForm} from './context/ContextForm.js';
 import useRegistrationForm from "../../hooks/useRegistrationForm";
 import {SignupSchema} from "./schema/SignupSchema";
+import useCustomNavigate from "../../hooks/useCustomNavigate";
 
 const RegistrationForm = (props) => {
 
@@ -13,6 +14,12 @@ const RegistrationForm = (props) => {
         name: props.user.name,
         phone: props.user.phone,
     };
+
+    const navigate = useCustomNavigate();
+
+    const onBackButtonClick = () => {
+        navigate.goBack();
+    }
 
     return (
         <ContextForm.Provider value={character}>
@@ -50,8 +57,9 @@ const RegistrationForm = (props) => {
                                         <div>{errors.phone}</div>
                                     ) : null}
                                     <br/>
-
-                                    <button type="submit" className="submit">Submit</button>
+                                    <button type="submit" className="submit">
+                                        Submit
+                                    </button>
                                 </>}
                             <button type="button" onClick={onShowForm}>
                                 {!isShow ?
@@ -60,6 +68,7 @@ const RegistrationForm = (props) => {
                                     'Cancel'
                                 }
                             </button>
+                            <button type="button" onClick={onBackButtonClick}>Go Back</button>
                         </Form>
                     )
                 }}
