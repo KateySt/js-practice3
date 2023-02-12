@@ -1,29 +1,26 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import useUserDetails from "../../../hooks/useUserDetails";
 import {useParams} from "react-router-dom";
 import RegistrationForm from "../../../components/form";
-import {ContextForm} from "../../../components/form/context/ContextForm";
+import useList from "../../../hooks/useList";
 
 const UserUpDatePage = () => {
     const {id} = useParams();
-
+    const {list} = useList();
     const {user} = useUserDetails(id);
-
-    const value = useContext(ContextForm);
-
-    useEffect(()=>{
-        console.log("upData",value)
-    },[value])
 
     return (
         <>
-            {user &&
-                <RegistrationForm user={user}>
+            {user.name &&
+                <>
+                    <RegistrationForm user={user}/>
                     UpData:
-                    {value.name &&
-                        <div>{`${value.name} --${value.phone}`}</div>
+                    {list &&
+                        list.map((value) =>
+                            <div key={`update --- ${value.id}`}>{`${value.name} --${value.phone}`}</div>
+                        )
                     }
-                </RegistrationForm>
+                </>
             }
         </>
     );

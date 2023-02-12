@@ -6,9 +6,8 @@ const ListUsersPage = () => {
     return (
         <>
             Add user:
-            <RegistrationForm user={{name: 'Patric', phone: ''}}>
-                <ListContact/>
-            </RegistrationForm>
+            <RegistrationForm user={{name: 'Patric', phone: ''}}/>
+            <ListContact/>
         </>
     );
 }

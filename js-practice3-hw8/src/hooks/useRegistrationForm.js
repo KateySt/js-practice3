@@ -1,14 +1,28 @@
-import {useState} from "react";
+import {useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {changeUsersAsync, postListUsers} from "../features/users/UsersSlice";
 
 function useRegistrationForm() {
-    const [character, setCharacter] = useState({});
+    const {id} = useParams();
+    const isAddMode = !id;
+    const dispatch = useDispatch();
 
     const onSubmitFormik = (values) => {
-        setCharacter({name: values.name, phone: values.phone});
+        if (isAddMode)
+            dispatch(postListUsers({
+                id: Date.now(),
+                name: values.name,
+                phone: values.phone
+            }));
+        else
+            dispatch(changeUsersAsync({
+                id: values.id,
+                name: values.name,
+                phone: values.phone
+            }));
     }
 
     return {
-        character,
         onSubmitFormik,
     };
 }

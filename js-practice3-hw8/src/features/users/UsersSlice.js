@@ -7,22 +7,25 @@ export const UsersSlice = createSlice({
         usersList: [],
         user: {},
         deleteElement: {},
+        changeElement: {},
     },
     reducers: {
         postList: (state, action) => {
             state.usersList = [...state.usersList, action.payload];
         },
         deleteList: (state, action) => {
-            state.deleteElement = state.usersList.splice(state.usersList.map(el => el.name).indexOf(action.payload.name), 1);
+            state.deleteElement = state.usersList.splice(
+                state.usersList.map(el => el.name).indexOf(action.payload.name), 1);
         },
         changeList: (state, action) => {
-            console.log("slice")
-            state.usersList = state.usersList.map((el) => ({
-                ...el,
-                name: action.payload.name,
-                phone: action.payload.phone,
-            }));
-            console.log(state.usersList)
+            state.changeElement = state.usersList.splice(
+                state.usersList.map(el => el.name).indexOf(action.payload.name), 1,
+                {
+                    id: action.payload.id,
+                    name: action.payload.name,
+                    phone: action.payload.phone,
+                }
+            );
         },
         getList: (state, action) => {
             state.usersList = action.payload;
@@ -56,6 +59,12 @@ export const getUsersAsync = () => (dispatch) => {
 }
 
 export const changeUsersAsync = (user) => (dispatch) => {
+    axios({
+        method: 'post',
+        url: 'users',
+        data: user
+    }).catch((err) => console.log("Don`t correct input", err));
+
     dispatch(changeList(user));
 }
 

@@ -1,14 +1,12 @@
 import React from 'react';
 import {Field, Form, Formik} from 'formik';
 import './RegistrationForm.css';
-import {ContextForm} from './context/ContextForm.js';
-import useRegistrationForm from "../../hooks/useRegistrationForm";
 import {SignupSchema} from "./schema/SignupSchema";
 import useCustomNavigate from "../../hooks/useCustomNavigate";
+import useRegistrationForm from "../../hooks/useRegistrationForm";
 
 const RegistrationForm = (props) => {
-
-    const {character, onSubmitFormik} = useRegistrationForm();
+    const {onSubmitFormik} = useRegistrationForm();
 
     const SignupForm = {
         name: props.user.name,
@@ -22,52 +20,49 @@ const RegistrationForm = (props) => {
     }
 
     return (
-        <ContextForm.Provider value={character}>
-            <Formik
-                initialValues={SignupForm}
-                validationSchema={SignupSchema}
-                onSubmit={onSubmitFormik}>
-                {({errors, touched, handleChange, values}) => {
-                    return (<Form>
-                            {values.name &&
-                                <>
-                                    <label htmlFor="name">Name</label>
-                                    <br/>
-                                    <Field name="name"
-                                           className="input"
-                                           placeholder="Name"
-                                           value={values.name}
-                                           onChange={handleChange}
-                                           required/>
-                                    {errors.name && touched.name ? (
-                                        <div>{errors.name}</div>
-                                    ) : null}
-                                    <br/>
+        <Formik
+            initialValues={SignupForm}
+            validationSchema={SignupSchema}
+            onSubmit={onSubmitFormik}>
+            {({errors, touched, handleChange, values}) => {
+                return (<Form>
+                        {values.name &&
+                            <>
+                                <label htmlFor="name">Name</label>
+                                <br/>
+                                <Field name="name"
+                                       className="input"
+                                       placeholder="Name"
+                                       value={values.name}
+                                       onChange={handleChange}
+                                       required/>
+                                {errors.name && touched.name ? (
+                                    <div>{errors.name}</div>
+                                ) : null}
+                                <br/>
 
-                                    <label htmlFor="phone">Phone</label>
-                                    <br/>
-                                    <Field name="phone"
-                                           type="phone"
-                                           className="input"
-                                           placeholder="0670011222"
-                                           value={values.phone}
-                                           onChange={handleChange}
-                                           required/>
-                                    {errors.phone && touched.phone ? (
-                                        <div>{errors.phone}</div>
-                                    ) : null}
-                                    <br/>
-                                    <button type="submit" className="submit">
-                                        Submit
-                                    </button>
-                                </>}
-                            <button type="button" onClick={onBackButtonClick}>Go Back</button>
-                        </Form>
-                    )
-                }}
-            </Formik>
-            {props.children}
-        </ContextForm.Provider>
+                                <label htmlFor="phone">Phone</label>
+                                <br/>
+                                <Field name="phone"
+                                       type="phone"
+                                       className="input"
+                                       placeholder="0670011222"
+                                       value={values.phone}
+                                       onChange={handleChange}
+                                       required/>
+                                {errors.phone && touched.phone ? (
+                                    <div>{errors.phone}</div>
+                                ) : null}
+                                <br/>
+                                <button type="submit" className="submit">
+                                    Submit
+                                </button>
+                            </>}
+                        <button type="button" onClick={onBackButtonClick}>Go Back</button>
+                    </Form>
+                )
+            }}
+        </Formik>
     );
 
 };

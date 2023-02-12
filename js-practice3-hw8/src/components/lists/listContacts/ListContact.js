@@ -9,7 +9,6 @@ import ListAlbums from "../listAlbums";
 
 const ListContact = () => {
     const {list, onDelete} = useList();
-
     return (
         <>
             <Box sx={{maxWidth: 1000}}>
