@@ -56,12 +56,6 @@ export const getUsersAsync = () => (dispatch) => {
 }
 
 export const changeUsersAsync = (user) => (dispatch) => {
-    axios({
-        method: 'post',
-        url: 'users',
-        data: user
-    }).catch((err) => console.log("Don`t correct input", err));
-
     dispatch(changeList(user));
 }
 
