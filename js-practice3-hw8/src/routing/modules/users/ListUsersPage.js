@@ -4,9 +4,11 @@ import RegistrationForm from "../../../components/form";
 
 const ListUsersPage = () => {
     return (
-        <RegistrationForm user={{name: 'Patric', phone: ''}}>
+        <>
+            Add user:
+            <RegistrationForm user={{name: 'Patric', phone: ''}}/>
             <ListContact/>
-        </RegistrationForm>
+        </>
     );
 }
 export default ListUsersPage;
