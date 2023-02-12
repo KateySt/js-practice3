@@ -8,29 +8,34 @@ import {
     postListUsers,
     selectUsersList
 } from "../features/users/UsersSlice";
+import {useRouteMatch} from "react-router-dom";
 
 function useList() {
     const value = useContext(ContextForm);
     const list = useSelector(selectUsersList);
     const dispatch = useDispatch();
+    const {url} = useRouteMatch();
 
     useEffect(() => {
-        dispatch(getUsersAsync());
-    }, []);
+        console.log('user',value)
+
+    }, [value]);
 
     useEffect(() => {
         if (list)
             if (value.phone !== undefined) {
-                if (list.map(el => el.name).indexOf(value.name) === -1)
+                if (url === "/users")
                     dispatch(postListUsers({
                         id: Date.now(),
                         name: value.name,
                         phone: value.phone
                     }));
-                else
-                    dispatch(changeUsersAsync(value));
             }
     }, [value]);
+
+    useEffect(() => {
+        dispatch(getUsersAsync());
+    }, []);
 
     const onDelete = (value) => {
         dispatch(deleteListUsers(value));

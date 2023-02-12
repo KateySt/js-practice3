@@ -9,7 +9,7 @@ function useRegistrationForm() {
     }
 
     const onSubmitFormik = (values) => {
-        setCharacter({id: Date.now(), name: values.name, phone: values.phone});
+        setCharacter({name: values.name, phone: values.phone});
     }
 
     useEffect(() => {

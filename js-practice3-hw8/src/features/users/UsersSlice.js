@@ -18,8 +18,8 @@ export const UsersSlice = createSlice({
         changeList: (state, action) => {
             state.usersList = state.usersList.map((el) => ({
                 ...el,
-                name: el.id === action.payload.id ?  el.name :action.payload.name,
-                phone: el.id === action.payload.id ? el.phone: action.payload.phone,
+                name: el.id === action.payload.id ? el.name : action.payload.name,
+                phone: el.id === action.payload.id ? el.phone : action.payload.phone,
             }));
         },
         getList: (state, action) => {
