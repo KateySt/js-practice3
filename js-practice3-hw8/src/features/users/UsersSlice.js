@@ -16,11 +16,13 @@ export const UsersSlice = createSlice({
             state.deleteElement = state.usersList.splice(state.usersList.map(el => el.name).indexOf(action.payload.name), 1);
         },
         changeList: (state, action) => {
+            console.log("slice")
             state.usersList = state.usersList.map((el) => ({
                 ...el,
-                name: el.id === action.payload.id ?  el.name :action.payload.name,
-                phone: el.id === action.payload.id ? el.phone: action.payload.phone,
+                name: action.payload.name,
+                phone: action.payload.phone,
             }));
+            console.log(state.usersList)
         },
         getList: (state, action) => {
             state.usersList = action.payload;
@@ -54,6 +56,12 @@ export const getUsersAsync = () => (dispatch) => {
 }
 
 export const changeUsersAsync = (user) => (dispatch) => {
+    axios({
+        method: 'post',
+        url: 'users',
+        data: user
+    }).catch((err) => console.log("Don`t correct input", err));
+
     dispatch(changeList(user));
 }
 

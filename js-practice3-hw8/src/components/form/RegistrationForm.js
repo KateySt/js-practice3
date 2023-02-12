@@ -8,7 +8,7 @@ import useCustomNavigate from "../../hooks/useCustomNavigate";
 
 const RegistrationForm = (props) => {
 
-    const {character, isShow, onShowForm, onSubmitFormik} = useRegistrationForm();
+    const {character, onSubmitFormik} = useRegistrationForm();
 
     const SignupForm = {
         name: props.user.name,
@@ -29,7 +29,7 @@ const RegistrationForm = (props) => {
                 onSubmit={onSubmitFormik}>
                 {({errors, touched, handleChange, values}) => {
                     return (<Form>
-                            {isShow && values.name &&
+                            {values.name &&
                                 <>
                                     <label htmlFor="name">Name</label>
                                     <br/>
@@ -61,13 +61,6 @@ const RegistrationForm = (props) => {
                                         Submit
                                     </button>
                                 </>}
-                            <button type="button" onClick={onShowForm}>
-                                {!isShow ?
-                                    'Show form'
-                                    :
-                                    'Cancel'
-                                }
-                            </button>
                             <button type="button" onClick={onBackButtonClick}>Go Back</button>
                         </Form>
                     )

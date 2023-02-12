@@ -1,20 +1,12 @@
 import {NavLink} from "react-router-dom";
-import {useState} from "react";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import useNavigation from "../../hooks/useNavigation";
 
 const Navigation = () => {
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const {anchorEl, open, handleClose, handleClick} = useNavigation();
 
     return (
         <div>
@@ -25,7 +17,7 @@ const Navigation = () => {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
-               Menu
+                Menu
             </Button>
             <Menu
                 id="fade-menu"
